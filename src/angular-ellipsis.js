@@ -20,6 +20,7 @@ angular.module('dibari.angular-ellipsis',[])
 		restrict	: 'A',
 		scope		: {
 			ngBind				: '=',
+			ellipsisId            : '=',
 			ellipsisAppend		: '@',
 			ellipsisAppendClick	: '&',
 			ellipsisSymbol		: '@'
@@ -88,6 +89,13 @@ angular.module('dibari.angular-ellipsis',[])
 			   /**
 				*	Watchers
 				*/
+					if (scope.ellipsisId !== null && scope.ellipsisId !== "") {
+						scope.$on('ellipsize-' + scope.ellipsisId, function() {
+							attributes.lastWindowTimeoutEvent = $timeout(function() {
+								buildEllipsis();
+							}, 75);
+						});
+					}
 
 				   /**
 					*	Execute ellipsis truncate on ngBind update
